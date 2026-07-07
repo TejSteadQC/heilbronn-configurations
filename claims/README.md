@@ -1,0 +1,16 @@
+# Claims index
+
+- [01-record-triangle-n13](01-record-triangle-n13/README.md) — value 0.0265565289…, 5 image(s)
+- [02-record-convex-n15](02-record-convex-n15/README.md) — value 0.0245640556…, 6 image(s)
+- [03-exact-convex-n18](03-exact-convex-n18/README.md) — value 0.0182388954…, 4 image(s)
+- [04-extension-square-n17](04-extension-square-n17/README.md) — value 0.0164812220…, 5 image(s)
+- [05-extension-square-n18](05-extension-square-n18/README.md) — value 0.0144326564…, 5 image(s)
+- [06-extension-square-n19](06-extension-square-n19/README.md) — value 0.0126773958…, 5 image(s)
+- [07-extension-square-n20](07-extension-square-n20/README.md) — value 0.0108560321…, 6 image(s)
+- [08-extension-triangle-n17](08-extension-triangle-n17/README.md) — value 0.0155173728…, 6 image(s)
+- [09-extension-triangle-n18](09-extension-triangle-n18/README.md) — value 0.0133934695…, 7 image(s)
+- [10-extension-triangle-n19](10-extension-triangle-n19/README.md) — value 0.0111615204…, 6 image(s)
+- [11-extension-triangle-n20](11-extension-triangle-n20/README.md) — value 0.0101084498…, 7 image(s)
+- [12-extension-convex-n17](12-extension-convex-n17/README.md) — value 0.0187314546…, 6 image(s)
+- [13-extension-convex-n19](13-extension-convex-n19/README.md) — value 0.0145273046…, 6 image(s)
+- [14-extension-convex-n20](14-extension-convex-n20/README.md) — value 0.0132668643…, 6 image(s)
