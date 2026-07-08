@@ -1,6 +1,7 @@
 # Heilbronn convex n=15
 # min triangle area (normalized, mpmath 50dps): 0.024564055613230168
-# domain: convex hull of the points, normalized to area 1
+# domain: convex hull of the points; value = min triangle area / hull area (scale-invariant).
+# Coordinates are scaled so the hull area is 1 up to the 15-decimal truncation (~1e-15).
 0.039658656707683	-0.585803216615756
 -0.255580085165915	-0.513895833975489
 0.362382016030733	-0.498003360214237
