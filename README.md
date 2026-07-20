@@ -64,6 +64,10 @@ claims/NN-type-variant-nK/
   exact.py             (convex n=18 only) symbolic derivation + verification
 ```
 
+The optimization code that found these configurations is in
+[`search/`](search/README.md) (trust-region successive-LP local maximizer,
+multistart basin-hopping, symmetry-restricted searches; numpy/scipy).
+
 ## Verification
 
 Every coordinate file was checked by **two independently written verifiers**
