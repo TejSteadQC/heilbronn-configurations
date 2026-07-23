@@ -2,8 +2,8 @@
 
 The optimization code that produced the configurations in `../claims/`.
 Python 3, requires `numpy` and `scipy` (plus `mpmath` for `refine.py`-level
-verification, `matplotlib`+`shapely` for `render.py`; the exact verifiers in
-`../verifiers/` are stdlib-only).
+verification, `matplotlib`+`shapely` for `render.py`, `Pillow` for
+`gifseed.py`; the exact verifiers in `../verifiers/` are stdlib-only).
 
 Quick start (finds the proven square n=8 optimum in seconds, writes
 `results/square/n8.json`):
@@ -72,7 +72,20 @@ runs the grow+attack extension campaign up to n=22 with a timing ledger.
   deep streams failed to beat (N and seconds in the ledger).
 - **`render.py`** — Friedman-style figures: finds all minimal-area triangles,
   partitions them into pairwise non-overlapping groups (greedy coloring of the
-  overlap graph via shapely), one image per group.
+  overlap graph via shapely), one image per group. `python render.py
+  results/square/n8.json` renders one case; `python render.py all` renders
+  everything under `results/`. Triangle-domain configurations are displayed in
+  an equilateral triangle (the affine map preserves area ratios and overlaps).
+- **`gifseed.py`** — the reverse direction: extracts approximate point
+  coordinates from record images in the Packing Center's GIF style (dot
+  detection via a dark-neighborhood filter, hull corners for convex figures)
+  and polishes them into exact configurations. Useful for recovering
+  coordinates from published pictures; needs Pillow. Expects the GIFs in
+  `pages/` named as on Friedman's site (e.g. `ht14a.gif`, `hc12.gif`).
+- **`alphaevolve_extract.py`** — pulls the AlphaEvolve (June 2025) Heilbronn
+  coordinates out of DeepMind's `mathematical_results.ipynb`, writes credited
+  text files, and renders them with `render.py`'s machinery (the output lives
+  in `../alphaevolve/`).
 
 ## Workflow that produced the claims
 
