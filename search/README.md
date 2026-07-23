@@ -2,7 +2,20 @@
 
 The optimization code that produced the configurations in `../claims/`.
 Python 3, requires `numpy` and `scipy` (plus `mpmath` for `refine.py`-level
-verification; the exact verifiers in `../verifiers/` are stdlib-only).
+verification, `matplotlib`+`shapely` for `render.py`; the exact verifiers in
+`../verifiers/` are stdlib-only).
+
+Quick start (finds the proven square n=8 optimum in seconds, writes
+`results/square/n8.json`):
+
+```
+pip install numpy scipy
+python attack.py square 8 30 4     # variant n seconds workers
+```
+
+Reproduce a table entry: `python attack.py triangle 13 600 12` typically
+reaches the record basin within a few minutes; `python ladder.py 22 600`
+runs the grow+attack extension campaign up to n=22 with a timing ledger.
 
 ## Core
 
@@ -46,13 +59,20 @@ verification; the exact verifiers in `../verifiers/` are stdlib-only).
   points on the axis); covers n where cyclic groups fit awkwardly.
 - **`refine.py`** — repeated shrinking-trust-region polish to push a
   configuration to ~1e-15 convergence before exact verification.
-- **`consensus.py`** — the campaign driver used for n >= 21: independent
-  discovery streams (fresh / boundary-biased / grow-seeded starts) run in
-  parallel with confirmation streams that restart from a strongly scrambled
-  champion (3-5 points teleported); a case stops only when 3 confirmation
-  streams independently climb back to the champion value, and any stream that
-  beats the champion voids all votes. Wall-clock cost per case is recorded in
-  a `timings.json` ledger.
+- **`ladder.py`** — extension campaign driver: for each n it seeds from the
+  n-1 solution (grow) then runs a parallel attack, with per-case wall-clock
+  time recorded in a `timings.json` ledger. This produced the n=17..28 tables.
+- **`consensus.py`** — an experimental stopping-rule driver (confirmation
+  streams restart from a scrambled champion; votes when they climb back).
+  Kept for reference, but see `CONSENSUS_NOTES.md`: at n >= 17 the champion
+  basins are ~0.01 wide and basin exits are one-way for the hopping walk, so
+  no calibration of the scramble makes the vote both meaningful and
+  terminating. The evidence standard actually used for the published values
+  is "unbeaten-N": the value is an exact critical point that N independent
+  deep streams failed to beat (N and seconds in the ledger).
+- **`render.py`** — Friedman-style figures: finds all minimal-area triangles,
+  partitions them into pairwise non-overlapping groups (greedy coloring of the
+  overlap graph via shapely), one image per group.
 
 ## Workflow that produced the claims
 
