@@ -10,7 +10,12 @@ import sys
 import time
 import numpy as np
 
-from heil import polish, random_config, value, save_result, load_result, project
+from heil import random_config, value, save_result, load_result, project
+
+if os.environ.get("FAST_POLISH", "1") == "1":
+    from fastheil import polish_fast as polish
+else:
+    from heil import polish
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 

@@ -9,7 +9,12 @@ import os
 import sys
 import numpy as np
 
-from heil import polish, value, save_result, load_result, random_config, project
+from heil import value, save_result, load_result, random_config, project
+
+if os.environ.get("FAST_POLISH", "1") == "1":
+    from fastheil import polish_fast as polish
+else:
+    from heil import polish
 
 
 def insert_candidates(X, variant, rng, tries=200):

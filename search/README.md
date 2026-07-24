@@ -17,6 +17,26 @@ Reproduce a table entry: `python attack.py triangle 13 600 12` typically
 reaches the record basin within a few minutes; `python ladder.py 22 600`
 runs the grow+attack extension campaign up to n=22 with a timing ledger.
 
+## Fast polish (5-8x)
+
+`fastheil.py` is a drop-in replacement for the local maximizer, measured
+4-8x faster at equal quality (speedup grows with n). Three changes:
+constraint filtering (only triangles within 3x of the current minimum enter
+the LP; every accepted step is re-validated against ALL C(n,3) triples),
+direct HiGHS calls through one shared solver instance (presolve off), and
+column reduction (only points touching pool triangles become LP variables).
+`attack.py`/`grow.py` use it by default (env `FAST_POLISH=0` reverts).
+
+Optional C kernel for the full-set validation (another ~2x inside the
+filter loop): `cc -O3 -march=native -shared -o ctest/libheil.dylib
+ctest/libheil.c` — pure-numpy fallback engages automatically if absent.
+
+Ideas that did NOT work, so you can skip them: LP warm-starting across SLP
+iterations (basis goes stale, 1.0x at n=28), step rescaling in place of
+trust-region re-solves (direction goes stale, slower than baseline), and a
+Newton endgame on the active set (ill-conditioned near-degenerate tied
+triangles reject the steps).
+
 ## Core
 
 - **`heil.py`** — geometry and the local maximizer. The key routine is
